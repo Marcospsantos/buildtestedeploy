@@ -19,7 +19,8 @@ jobs:
           password: ${{secrets.DOCKERHUB_PWD}}
       
       - name: Rodar a Aplicação
-        run: docker run -it -d imagem-marcos:latest
+        run: docker run -d -p 8080:80 imagem-marcos:latest
+
 
   test:
     needs: build
@@ -44,6 +45,7 @@ jobs:
         with:
           username: ${{secrets.DOCKERHUB_USER}}
           password: ${{secrets.DOCKERHUB_PWD}}
+      
 
   build_and_run_local:
     name: Deploy e com Nginx
@@ -54,8 +56,10 @@ jobs:
       - name: Build da Imagem Docker com Nginx
         run: |
           docker build -t minha-aplicacao-nginx .
-          docker run -d -p 8080:80 minha-aplicacao-nginx
           
+      - name: Rodar a Aplicação com Nginx
+        run: docker run -d -p 8080:80 minha-aplicacao-nginx
+
       - name: Build and push Docker images
         uses: docker/build-push-action@v2
         with:
