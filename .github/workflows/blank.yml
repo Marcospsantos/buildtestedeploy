@@ -26,8 +26,8 @@ jobs:
       - name: Run SAST Analysis via Semgrep
         uses: returntocorp/semgrep-action@v1
         with:
-          github_token: ${{secrets.DOCKERHUB_USER}}
-          config: python.lang.security.yaml
+         username: ${{secrets.DOCKERHUB_USER}}
+          #config: python.lang.security.yaml
 
   deploy:
     name: Deploy da Aplicação
@@ -40,7 +40,8 @@ jobs:
     - name: Login no Docker Hub
       uses: docker/login-action@v1
       with:
-        docker push ${{secrets.DOCKERHUB_USER}}/imagem-marco:latest
+       username: ${{secrets.DOCKERHUB_USER}}
+       password: ${{secrets.DOCKERHUB_PWD}}docker push ${{secrets.DOCKERHUB_USER}}/imagem-marcos:latest
 
     - name: Rodar a Aplicação
-      run: docker run -it -d imagem-marco:latest
+      run: docker run -it -d imagem-marcos:latest
