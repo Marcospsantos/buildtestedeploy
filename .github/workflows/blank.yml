@@ -56,3 +56,11 @@ jobs:
         run: |
           docker build -t minha-aplicacao-nginx .
           docker run -d -p 8080:80 minha-aplicacao-nginx
+          
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: |
+            imagem-marcos:latest
