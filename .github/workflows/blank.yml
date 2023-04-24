@@ -18,6 +18,8 @@ jobs:
         with:
           username: ${{secrets.DOCKERHUB_USER}}
           password: ${{secrets.DOCKERHUB_PWD}}
+      - name: Docker Run
+          image:imagem-marcos:latest
 
   test:
     needs: build
